@@ -32,17 +32,25 @@ public class UserRepositoy {
                 System.out.println(users);
         }
 
-        // Colecting username and password and turning it into a LIST if is matchas any created properties
+        // Filtering users by username and password, and collecting matching users into a list
         public User login(String username, String password){
                 List<User>finalList = users.stream()
                 .filter(user -> user.getUsername().equals(username) && user.getPassword().equals(password))
                 .collect(Collectors.toList());
 
-                // Checking if the variable finalList is not empty to return it.
+                // Returning the first user if the list is not empty.
                 if(!finalList.isEmpty()){
                         return finalList.get(0);
                 } else{
                         return null;
                 }
         }
+
+
+        public boolean addNewCustomer(String username, String password, String contactNumber){
+                User user = new User(username, password, contactNumber, "user", 500.0);
+                return users.add(user);
+        }
+
+
 }
