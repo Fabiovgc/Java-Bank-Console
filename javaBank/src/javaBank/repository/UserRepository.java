@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 
 import javaBank.entity.User;
 
-public class UserRepositoy {
+public class UserRepository {
+
+
         // Using Collections to create data
         // Choose SET because it doesn't allow to duplicate values in the same Collection
         // HashSet X LinkedHashSet = hashSet doesn't takes care of the insertion order. LinkedhashSet maintain the insertion order.
@@ -51,6 +53,25 @@ public class UserRepositoy {
                 User user = new User(username, password, contactNumber, "user", 500.0);
                 return users.add(user);
         }
+
+        public Double checkBankBalance(String userId){
+                List<User> result = users.stream().filter(user -> user.getUsername().equals(userId)).collect(Collectors.toList());
+
+                if(!result.isEmpty()){
+                        return result.get(0).getAccountBalance();
+                } else {
+                        return null;
+                }
+        }
+
+        // public User findByUsername(String username){
+        //         for(User user : users){
+        //                 if(user.getUsername().equals(username)){
+        //                         return user;
+        //                 }
+        //         }
+        //         return null;
+        // }
 
 
 }

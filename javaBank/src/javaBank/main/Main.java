@@ -17,7 +17,7 @@ public class Main {
                 UserService userService = new UserService();
 
 
-                // While true means that the code will run and repeat itself in a loop
+                // While true means that the code will run and repeat in a loop
 
                 while(true){
                         System.out.println("Enter your username: ");
@@ -39,7 +39,7 @@ public class Main {
         
                         } else if (user!=null && user.getRole().equals("user")){
         
-                                main.initCustomer();
+                                main.initCustomer(user);
         
                         } else {
         
@@ -54,7 +54,7 @@ public class Main {
 
 
 
-        
+
 
         private void initAdmin(){
 
@@ -77,7 +77,7 @@ public class Main {
                                         main.addNewCustomer();
                                         break;
                                 default:
-                                        System.out.println("Wrong choice ! ");;
+                                        System.out.println("Wrong choice ! ");
                         }
 
                 }
@@ -104,12 +104,14 @@ public class Main {
                 }
         }
 
-        private void initCustomer(){
+        private void initCustomer(User user){
 
                 boolean flag = true;
 
                 while(flag){
                         System.out.println("1. Exit/Logout");
+                        System.out.println("2. Check bank balance");
+
                         int selectedOption = scanner.nextInt();
 
                         switch (selectedOption) {
@@ -117,6 +119,14 @@ public class Main {
                                 flag = false;
                                         System.out.println("Good Bye!");
                                         break;
+                                case 2:
+                                        Double balance = main.checkBankBalance(user.getUsername());
+                                        if(balance != null){
+                                                System.out.println("your bank balance is " + balance);
+                                        } else {
+                                                System.out.println("Check your username");
+                                        }
+                                        break; 
                                 default:
                                         break;
                         }
@@ -124,5 +134,18 @@ public class Main {
                 }
 
         }
+
+
+        private Double checkBankBalance(String userId){
+               return userService.checkBankBalance(userId);
+        }
+
+
+
+        // public static double getAccountBalance(UserService userService, String username){
+        //         User FindUsername = userService.findByUsername(username);        
+        //         return FindUsername.getAccountBalance();
+                
+        // }
 
 }
